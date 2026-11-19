@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#0b0620">
+<title>Amigo Secreto · Máquina raspa y gana</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body data-view="loading">
+<canvas id="confetti"></canvas>
+<div class="bg-glow"></div>
+<button id="soundBtn" class="icon-btn" aria-label="Activar o silenciar sonido">🔊</button>
+
+<main class="app" id="app">
+  <section id="view-loading" class="view active">
+    <div class="loader"></div>
+    <p class="hint">Conectando con la sala...</p>
+  </section>
+
+  <section id="view-login" class="view">
+    <header class="brand">
+      <span class="brand-emoji">🎁</span>
+      <h1>Amigo Secreto</h1>
+      <p class="tagline">Máquina Raspa y Gana</p>
+    </header>
+    <form id="loginForm" class="card" novalidate>
+      <label>Nombre (agrega uno)
+        <input id="firstName" type="text" maxlength="30" autocomplete="given-name" placeholder="Ej: María">
+      </label>
+      <label>Apellido (agrega uno)
+        <input id="lastName" type="text" maxlength="30" autocomplete="family-name" placeholder="Ej: Pérez">
+      </label>
+      <p id="loginError" class="error" role="alert"></p>
+      <button type="submit" id="joinBtn" class="btn primary big">Entrar a la sala</button>
+    </form>
+    <p id="loginNotice" class="notice"></p>
+  </section>
+
+  <section id="view-room" class="view">
+    <header class="brand small">
+      <span class="brand-emoji">🎁</span>
+      <h2>Sala de espera</h2>
+    </header>
+    <div class="card">
+      <div class="room-head">
+        <h3>Participantes</h3>
+        <span id="countBadge" class="badge">0</span>
+      </div>
+      <ul id="participantList" class="plist"></ul>
+      <p id="roomHint" class="hint"></p>
+      <button id="seeBtn" class="btn primary big hidden" type="button">🎁 Ver mi Amigo Secreto</button>
+      <div id="hostPanel" class="host-panel hidden">
+        <p class="host-title">👑 Panel del Anfitrión</p>
+        <button id="startBtn" class="btn primary big" disabled>¡Iniciar Sorteo!</button>
+        <p id="startHint" class="hint"></p>
+        <div class="host-row">
+          <button id="endDrawBtn" class="btn ghost hidden" type="button">Cerrar sorteo</button>
+          <button id="resetBtn" class="btn ghost" type="button">Reiniciar sala</button>
+          <button id="exitHostBtn" class="btn ghost" type="button">Salir de modo anfitrión</button>
+        </div>
+      </div>
+    </div>
+    <button id="leaveBtn" class="link-btn hidden" type="button">Salir de la sala</button>
+  </section>
+
+  <section id="view-draw" class="view">
+    <h2 class="neon-title">Máquina Raspa y Gana</h2>
+    <div class="slot" id="slot">
+      <div class="bulbs top"></div>
+      <div class="reels">
+        <div class="reel spinning"><span>🎁</span></div>
+        <div class="reel spinning"><span>🎁</span></div>
+        <div class="reel spinning"><span>🎁</span></div>
+      </div>
+      <div class="ticker" id="tickerName"></div>
+      <div class="bulbs bottom"></div>
+    </div>
+    <p class="joke" id="jokeText"></p>
+    <div class="progress"><div id="progressBar"></div></div>
+  </section>
+
+  <section id="view-reveal" class="view">
+    <h2 class="neon-title">No le digas a nadie</h2>
+    <div class="envelope">
+      <div class="stamp">🔒 CLASIFICADO</div>
+      <div class="scratch" id="scratch">
+        <div class="prize">
+          <p class="prize-label" id="prizeLabel">Tu Amigo Secreto es</p>
+          <p class="prize-name" id="prizeName"></p>
+          <p class="prize-sub" id="prizeSub"></p>
+        </div>
+        <canvas id="scratchCanvas" class="cover"></canvas>
+      </div>
+    </div>
+    <p id="scratchHint" class="hint">Rasca la tarjeta con el dedo o el mouse</p>
+    <button id="revealBtn" class="btn ghost" type="button">Revelar de golpe</button>
+    <button id="backBtn" class="btn ghost" type="button">🏠 Volver a la sala</button>
+  </section>
+</main>
+
+<footer>
+  <button id="hostBtn" class="host-link" type="button">Modo Anfitrión</button>
+</footer>
+
+<div id="modal" class="modal hidden">
+  <form id="hostForm" class="card modal-card" novalidate>
+    <h3>Modo Anfitrión</h3>
+    <input id="hostPass" type="password" placeholder="Contraseña" autocomplete="off">
+    <p id="hostError" class="error" role="alert"></p>
+    <div class="host-row">
+      <button type="button" id="hostCancel" class="btn ghost">Cancelar</button>
+      <button type="submit" class="btn primary">Entrar</button>
+    </div>
+  </form>
+</div>
+
+<script type="module" src="app.js"></script>
+</body>
+</html>
